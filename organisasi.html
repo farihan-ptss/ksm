@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Organisasi Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purpleBrand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .purple-gradient-bg {
+            background: linear-gradient(135deg, #2e1065 0%, #4c1d95 50%, #6d28d9 100%);
+        }
+        .purple-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-purpleBrand-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-purpleBrand-950 text-white shadow-lg border-b border-purpleBrand-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-purpleBrand-800 flex items-center justify-center border-2 border-purpleBrand-400 shadow">
+                    <i class="fa-solid fa-compass text-purpleBrand-200 text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-purpleBrand-300 font-bold block">Portal Rasmi</span>
+                    <h1 class="text-lg font-bold text-white leading-tight">Pengakap Kelanasiswa Malaysia</h1>
+                </div>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                <a href="#pengenalan" class="text-purpleBrand-200 hover:text-white transition">Pengenalan</a>
+                <a href="#carta-visual" class="text-purpleBrand-200 hover:text-white transition">Carta Organisasi</a>
+                <a href="#senarai-pimpinan" class="text-purpleBrand-200 hover:text-white transition">Barisan Kepimpinan</a>
+                <a href="#fungsi" class="text-purpleBrand-200 hover:text-white transition">Fungsi & Peranan</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobileMenuBtn" class="text-purpleBrand-200 hover:text-white focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-purpleBrand-900 border-t border-purpleBrand-800 px-4 pt-3 pb-5 space-y-2">
+            <a href="#pengenalan" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Pengenalan</a>
+            <a href="#carta-visual" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Carta Organisasi</a>
+            <a href="#senarai-pimpinan" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Barisan Kepimpinan</a>
+            <a href="#fungsi" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Fungsi & Peranan</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="purple-gradient-bg text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purpleBrand-800/80 border border-purpleBrand-500/50 text-purpleBrand-200 text-xs font-semibold uppercase tracking-wider mb-6">
+                <i class="fa-solid fa-users text-purpleBrand-300"></i> Pentadbiran & Kepimpinan 2026
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                Carta Organisasi Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia
+            </h1>
+            <p class="text-base sm:text-lg text-purpleBrand-100 max-w-2xl mx-auto font-light leading-relaxed">
+                Mengenali barisan kepimpinan yang menerajui kecemerlangan dan pembangunan pergerakan Pengakap Kelanasiswa di Institusi Pendidikan Tinggi (IPT) seluruh negara.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-medium text-purpleBrand-200">
+                <span class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-purpleBrand-400"></i> Kemaskini: 2026</span>
+                <span class="hidden sm:inline">•</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-sitemap text-purpleBrand-400"></i> Struktur Kepimpinan</span>
+                <span class="hidden sm:inline">•</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-purpleBrand-400"></i> Sektor Kelanasiswa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+
+        <!-- Pengenalan Section -->
+        <article id="pengenalan" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-purpleBrand-100">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-purpleBrand-100 text-purpleBrand-700 flex items-center justify-center font-bold text-lg">
+                    <i class="fa-solid fa-bookmark"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-purpleBrand-950">Pengenalan Kelanasiswa Malaysia</h2>
+            </div>
+            <div class="prose prose-purple max-w-none text-slate-600 leading-relaxed space-y-4">
+                <p>
+                    <strong>Pengakap Kelanasiswa Malaysia</strong> merupakan entiti khusus di bawah Persekutuan Pengakap Malaysia (PPM) yang menyelaras aktiviti pengakap di peringkat Institusi Pendidikan Tinggi (IPT) sama ada Universiti Awam (UA), Institusi Pendidikan Tinggi Swasta (IPTS), Institut Pendidikan Guru (IPG), mahupun Kolej Matrikulasi dan Politeknik.
+                </p>
+                <p>
+                    Bagi memastikan pengurusan dan pelaksanaan program berjalan secara sistematik, berkesan, dan meluas, **Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia** dibentuk bagi mengetuai pentadbiran, latihan, program antarabangsa, serta koordinasi di seluruh daerah dan ibu pejabat negeri.
+                </p>
+            </div>
+        </article>
+
+        <!-- Visual Image Section -->
+        <section id="carta-visual" class="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-purpleBrand-200">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wider">Infografik Rasmi</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-purpleBrand-950 mt-1">Carta Organisasi Visual</h2>
+                <p class="text-slate-500 text-sm mt-2">
+                    Visual lengkap hierarki Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia.
+                </p>
+            </div>
+
+            <!-- Image Wrapper with Click to Enlarge -->
+            <div class="relative group rounded-xl overflow-hidden border border-purpleBrand-200 bg-purpleBrand-950/5 shadow-inner">
+                <img 
+                    src="MAJLIS EKSEKUTIF PENGAKAP NEGERI_2026.jpg" 
+                    alt="Carta Organisasi Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia" 
+                    class="w-full h-auto object-contain transition duration-300 group-hover:scale-[1.01]"
+                    id="chartImg"
+                    onerror="this.onerror=null; this.src='https://placehold.co/1200x800/4c1d95/ffffff?text=Carta+Organisasi+Kelanasiswa+Malaysia'; "
+                />
+                <div class="absolute inset-0 bg-purpleBrand-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <button onclick="openModal()" class="px-5 py-2.5 bg-white text-purpleBrand-900 rounded-lg font-bold shadow-lg hover:bg-purpleBrand-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Imej Penuh
+                    </button>
+                </div>
+            </div>
+            <p class="text-xs text-center text-slate-400 mt-3">
+                <i class="fa-solid fa-info-circle"></i> Klik pada gambar untuk paparan saiz penuh.
+            </p>
+        </section>
+
+        <!-- Senarai Pimpinan Section -->
+        <section id="senarai-pimpinan" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-purpleBrand-200 pb-4">
+                <div>
+                    <h2 class="text-2xl font-bold text-purpleBrand-950">Barisan Kepimpinan Utama</h2>
+                    <p class="text-sm text-slate-500">Perincian jawatan dan pegawai terpilih Majlis Pesuruhjaya</p>
+                </div>
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-64">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-purpleBrand-400 text-xs"></i>
+                    <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Cari nama / jawatan..." class="w-full pl-9 pr-4 py-2 text-sm bg-white border border-purpleBrand-200 rounded-lg focus:outline-none focus:border-purpleBrand-600 focus:ring-1 focus:ring-purpleBrand-600">
+                </div>
+            </div>
+
+            <!-- Top Leader Featured Card -->
+            <div class="bg-gradient-to-r from-purpleBrand-900 to-purpleBrand-800 rounded-2xl p-6 sm:p-8 text-white shadow-lg border border-purpleBrand-700 flex flex-col md:flex-row items-center gap-6">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-purpleBrand-700 border-4 border-purpleBrand-300 shadow-xl flex items-center justify-center flex-shrink-0 text-purpleBrand-200">
+                    <i class="fa-solid fa-user-tie text-4xl"></i>
+                </div>
+                <div class="text-center md:text-left space-y-2">
+                    <span class="px-3 py-1 bg-purpleBrand-700/80 rounded-full text-xs font-semibold tracking-wider uppercase text-purpleBrand-200 border border-purpleBrand-500">
+                        Ketua Pesuruhjaya Pengakap Negeri
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white">DR. AZIZEE BIN AZIZ</h3>
+                    <p class="text-purpleBrand-200 text-sm leading-relaxed max-w-xl">
+                        Menerajui pentadbiran dan hala tuju keseluruhan Pergerakan Pengakap Kelanasiswa Malaysia di peringkat negeri dan kebangsaan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Grid Leaders -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="leadersGrid">
+
+                <!-- Timbalan 1 -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-100 text-purpleBrand-800 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Timbalan Ketua Pesuruhjaya Negeri 1</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">TS. AFFENDY ZABKHA BIN MOHAMAD ZAIN</h4>
+                            <p class="text-xs text-slate-500 mt-2">Membantu kepimpinan tertinggi dalam penyelarasan operasi dan portfolio khas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timbalan 2 -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-100 text-purpleBrand-800 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Timbalan Ketua Pesuruhjaya Negeri 2</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">TS. HAJI HAMDAN BIN SAMDIN</h4>
+                            <p class="text-xs text-slate-500 mt-2">Membantu pengurusan strategik dan penyelarasan program negeri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hal Ehwal Antarabangsa -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-50 text-purpleBrand-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Penolong Ketua Pesuruhjaya Negeri (Hal Ehwal Antarabangsa)</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">DR. WAN MUNA RUZANNA WAN MOHAMMAD</h4>
+                            <p class="text-xs text-slate-500 mt-2">Mengetuai jalinan kerjasama antarabangsa, program hubungan luar, dan acara pengakap peringkat global.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latihan Negeri -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-50 text-purpleBrand-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Pesuruhjaya Latihan Negeri</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">EN. AZMI BIN MOHAMMAD</h4>
+                            <p class="text-xs text-slate-500 mt-2">Menguruskan modul latihan, kejurulatihan, dan kursus kepimpinan Pengakap Kelanasiswa.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Negeri -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-50 text-purpleBrand-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Pesuruhjaya Program Negeri</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">PN. LAILA BINTI MUSA</h4>
+                            <p class="text-xs text-slate-500 mt-2">Merancang dan menyelaras aktiviti, perkhemahan, dan kemasyarakatan di peringkat negeri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pentadbiran -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-50 text-purpleBrand-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Penolong Ketua Pesuruhjaya Negeri (Pentadbiran)</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">PN. FARIHAN ELYANA BINTI ZAHARI</h4>
+                            <p class="text-xs text-slate-500 mt-2">Pengurusan surat-menyurat, keahlian, pendaftaran, dan kelancaran operasi urusetia.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profil -->
+                <div class="leader-card bg-white rounded-xl p-6 shadow-sm border border-purpleBrand-100 hover:border-purpleBrand-300 transition hover:shadow-md col-span-1 md:col-span-2">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-purpleBrand-50 text-purpleBrand-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Penolong Ketua Pesuruhjaya Negeri (Profil)</span>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">TS. DR. NORHANANI ABD RAHMAN</h4>
+                            <p class="text-xs text-slate-500 mt-2">Bertanggungjawab dalam pengurusan profil pegawai, rekod pencapaian, serta publisiti & media.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Other Divisions -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                <div class="bg-purpleBrand-900 text-white rounded-xl p-5 text-center shadow">
+                    <i class="fa-solid fa-layer-group text-2xl text-purpleBrand-300 mb-2"></i>
+                    <h5 class="font-bold text-sm">Pesuruhjaya Daerah</h5>
+                    <p class="text-xs text-purpleBrand-200 mt-1">Penyelarasan mengikut daerah & IPT</p>
+                </div>
+                <div class="bg-purpleBrand-900 text-white rounded-xl p-5 text-center shadow">
+                    <i class="fa-solid fa-building text-2xl text-purpleBrand-300 mb-2"></i>
+                    <h5 class="font-bold text-sm">Pesuruhjaya Ibu Pejabat Negeri</h5>
+                    <p class="text-xs text-purpleBrand-200 mt-1">Sokongan teknikal & operasional</p>
+                </div>
+                <div class="bg-purpleBrand-900 text-white rounded-xl p-5 text-center shadow">
+                    <i class="fa-solid fa-users-gear text-2xl text-purpleBrand-300 mb-2"></i>
+                    <h5 class="font-bold text-sm">Wakil Sekretariat Pengakap Kelana</h5>
+                    <p class="text-xs text-purpleBrand-200 mt-1">Penglibatan pemuda & mahasiswa</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fungsi & Peranan Section -->
+        <section id="fungsi" class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-purpleBrand-100 space-y-6">
+            <div class="border-b border-purpleBrand-100 pb-4">
+                <h2 class="text-2xl font-bold text-purpleBrand-950">Fungsi Utama Majlis Pesuruhjaya</h2>
+                <p class="text-sm text-slate-500">Teras perkhidmatan dan matlamat pergerakan Pengakap Kelanasiswa</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 rounded-xl bg-purpleBrand-50 border border-purpleBrand-100">
+                    <div class="w-8 h-8 rounded-full bg-purpleBrand-600 text-white flex items-center justify-center font-bold text-sm mb-3">1</div>
+                    <h3 class="font-bold text-purpleBrand-900 text-base mb-1">Pembangunan Kepimpinan</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Membentuk nilai sahsiah dan kepimpinan unggul dalam kalangan mahasiswa menerusi kaedah Kepengakapan.</p>
+                </div>
+                <div class="p-4 rounded-xl bg-purpleBrand-50 border border-purpleBrand-100">
+                    <div class="w-8 h-8 rounded-full bg-purpleBrand-600 text-white flex items-center justify-center font-bold text-sm mb-3">2</div>
+                    <h3 class="font-bold text-purpleBrand-900 text-base mb-1">Penyelarasan IPT</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Menjadi jambatan penghubung antara Persekutuan Pengakap Malaysia dengan unit-unit Pengakap Kelana di institut pendidikan tinggi.</p>
+                </div>
+                <div class="p-4 rounded-xl bg-purpleBrand-50 border border-purpleBrand-100">
+                    <div class="w-8 h-8 rounded-full bg-purpleBrand-600 text-white flex items-center justify-center font-bold text-sm mb-3">3</div>
+                    <h3 class="font-bold text-purpleBrand-900 text-base mb-1">Anugerah & Pengiktirafan</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed">Menguruskan skim lencana dan pencapaian tertinggi Pengakap Kelana seperti Anugerah Baden-Powell (BP Award).</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-purpleBrand-950 text-purpleBrand-200 py-8 border-t border-purpleBrand-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs space-y-3">
+            <div class="flex justify-center items-center gap-2">
+                <i class="fa-solid fa-compass text-purpleBrand-400 text-base"></i>
+                <span class="font-bold text-white text-sm">Pengakap Kelanasiswa Malaysia</span>
+            </div>
+            <p>© 2026 Majlis Pesuruhjaya Pengakap Negeri Kelanasiswa Malaysia. Hak Cipta Terpelihara.</p>
+            <p class="text-purpleBrand-400">Sekali Berpengakap, Terus Berpengakap • Service to Society</p>
+        </div>
+    </footer>
+
+    <!-- Image Modal for Fullscreen View -->
+    <div id="imageModal" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div class="relative max-w-5xl w-full max-h-[90vh] flex flex-col items-center">
+            <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-purpleBrand-300 text-2xl font-bold focus:outline-none">
+                <i class="fa-solid fa-xmark"></i> Tutup
+            </button>
+            <img src="MAJLIS EKSEKUTIF PENGAKAP NEGERI_2026.jpg" alt="Carta Organisasi Full" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl">
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Modal Functions
+        function openModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close Modal on Background Click
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Filter Function for Leaders
+        function filterCards() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.getElementsByClassName('leader-card');
+
+            Array.from(cards).forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
