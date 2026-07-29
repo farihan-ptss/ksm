@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ms" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelanasiswa Malaysia (KSM) - Portal Urus Tadbir</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        purple: {
+                            50: '#fbf7ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                            950: '#3b0764'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf7ff;
+            color: #3b0764;
+        }
+        .bg-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85vw;
+            max-width: 620px;
+            max-height: 80vh;
+            object-fit: contain;
+            opacity: 0.08; /* Transparan / Lutsinar */
+            pointer-events: none;
+            z-index: 0;
+            user-select: none;
+            filter: contrast(110%) saturate(120%);
+        }
+        .purple-gradient {
+            background: linear-gradient(135deg, #7e22ce 0%, #9333ea 50%, #c084fc 100%);
+        }
+        .purple-gradient-light {
+            background: linear-gradient(135deg, rgba(254, 250, 255, 0.88) 0%, rgba(243, 232, 255, 0.88) 50%, rgba(233, 213, 255, 0.88) 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(233, 213, 255, 0.8);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f3e8ff;
+            border-radius: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9333ea;
+<body class="bg-purple-50 text-slate-800 antialiased selection:bg-purple-200 selection:text-purple-900 relative">
+
+    <!-- Transparent Centered Background Watermark Logo -->
+    <img src="ksm.jpg" alt="Kelanasiswa Malaysia Watermark" class="bg-watermark" onerror="this.onerror=null; this.src='https://placehold.co/600x600/f3e8ff/7e22ce?text=KSM+Watermark';">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-purple-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center p-1 shadow-sm overflow-hidden">
+                        <img src="ksm.jpg" alt="Logo KSM" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-compass text-2xl text-purple-700\'></i>';">
+                    </div>
+                    <div>
+                        <a href="#" class="text-xl font-extrabold tracking-tight text-purple-950 flex items-center gap-2">
+                            KELANASISWA MALAYSIA
+                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-2.5 py-0.5 rounded-full border border-purple-200">KSM</span>
+                        </a>
+                        <p class="text-xs font-medium text-purple-600">Portal Pengurusan & Urus Tadbir Kebangsaan</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold">
+                    <a href="#pengenalan" class="text-slate-700 hover:text-purple-700 transition-colors">Mengenai KSM</a>
+                    <a href="#pautan-utama" class="text-slate-700 hover:text-purple-700 transition-colors">Pautan Data</a>
+                    <a href="#takwim-gantt" class="text-slate-700 hover:text-purple-700 transition-colors">Carta Gantt Grafik</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-purple-700 hover:bg-purple-100 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-purple-100 px-4 pt-2 pb-4 space-y-2">
+            <a href="#pengenalan" class="block py-2 text-slate-700 hover:text-purple-700 font-medium">Mengenai KSM</a>
+            <a href="#pautan-utama" class="block py-2 text-slate-700 hover:text-purple-700 font-medium">Pautan Data</a>
+            <a href="#takwim-gantt" class="block py-2 text-slate-700 hover:text-purple-700 font-medium">Carta Gantt Grafik</a>
+        </div>
+    </header>
+
+    <!-- Hero Banner Section -->
+    <section class="relative overflow-hidden pt-12 pb-16 purple-gradient-light border-b border-purple-200">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-200/80 text-purple-900 text-xs font-bold uppercase tracking-wider mb-4 border border-purple-300 shadow-sm">
+                    <i class="fa-solid fa-shield-halved text-purple-700"></i> Urus Tadbir & Data KSM 2026
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black text-purple-950 tracking-tight leading-tight mb-5">
+                    URUS TADBIR KELANASISWA MALAYSIA
+                </h1>
+                <p class="text-base sm:text-lg text-purple-800 font-medium leading-relaxed mb-8">
+                    Pusat sehenti pengurusan keahlian, permohonan tauliah, carta organisasi, serta takwim perancangan aktiviti urus tadbir Pengakap Kelana di Institusi Pengajian Tinggi Malaysia.
+                </p>
+
+                <!-- Quick Action Buttons -->
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="openModal('modal-org')" class="px-6 py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-2xl shadow-lg shadow-purple-700/25 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-sitemap"></i> Carta Organisasi KSM
+                    </button>
+                    <button onclick="openModal('modal-keahlian')" class="px-6 py-3.5 bg-white hover:bg-purple-100 text-purple-900 font-bold rounded-2xl shadow-md border border-purple-300 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-users text-purple-700"></i> Data Keahlian KSM
+                    </button>
+                    <button onclick="openModal('modal-tauliah')" class="px-6 py-3.5 bg-purple-950 hover:bg-purple-900 text-white font-bold rounded-2xl shadow-lg transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-award text-purple-300"></i> Data Tauliah KSM
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Direct Links Hub Section (Minimal Icon Buttons) -->
+    <section id="pautan-utama" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-8">
+            <span class="text-xs font-bold text-purple-700 uppercase tracking-wider bg-purple-100 px-3 py-1 rounded-full border border-purple-200">
+                <i class="fa-solid fa-database mr-1"></i> Modul Pangkalan Data
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-black text-purple-950 mt-2">Pautan Data & Urus Tadbir KSM</h2>
+            <p class="text-xs sm:text-sm text-purple-800 font-medium mt-1">Akses terus ke modul carta organisasi, data keahlian, dan rekod tauliah kebangsaan.</p>
+        </div>
+
+        <!-- 3 Clean Compact Module Cards with Small Icons -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <!-- Modul 1: Carta Organisasi -->
+            <button onclick="openModal('modal-org')" class="group text-left bg-white p-5 rounded-2xl border border-purple-200 shadow-sm hover:shadow-md hover:border-purple-400 transition-all duration-200 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 group-hover:bg-purple-700 group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                        <i class="fa-solid fa-sitemap text-base"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold text-purple-600 uppercase tracking-wider">Modul 01</div>
+                        <h3 class="text-sm font-extrabold text-purple-950 group-hover:text-purple-700 transition-colors">Carta Organisasi KSM</h3>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-purple-50 group-hover:bg-purple-100 flex items-center justify-center text-purple-700 text-xs transition-colors">
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Modul 2: Data Keahlian KSM -->
+            <button onclick="openModal('modal-keahlian')" class="group text-left bg-white p-5 rounded-2xl border border-purple-200 shadow-sm hover:shadow-md hover:border-emerald-400 transition-all duration-200 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                        <i class="fa-solid fa-users text-base"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Modul 02</div>
+                        <h3 class="text-sm font-extrabold text-purple-950 group-hover:text-emerald-700 transition-colors">Data Keahlian KSM</h3>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-emerald-50 group-hover:bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs transition-colors">
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+                </div>
+            </button>
+
+            <!-- Modul 3: Data Tauliah KSM -->
+            <button onclick="openModal('modal-tauliah')" class="group text-left bg-white p-5 rounded-2xl border border-purple-200 shadow-sm hover:shadow-md hover:border-amber-400 transition-all duration-200 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 group-hover:bg-amber-600 group-hover:text-white flex items-center justify-center flex-shrink-0 transition-colors">
+                        <i class="fa-solid fa-award text-base"></i>
+                    </div>
+                    <div>
+                        <div class="text-[10px] font-bold text-amber-600 uppercase tracking-wider">Modul 03</div>
+                        <h3 class="text-sm font-extrabold text-purple-950 group-hover:text-amber-700 transition-colors">Data Tauliah KSM</h3>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-amber-50 group-hover:bg-amber-100 flex items-center justify-center text-amber-700 text-xs transition-colors">
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!-- Redesigned Visual Graphic Gantt Chart Section -->
+    <section id="takwim-gantt" class="py-16 bg-white border-y border-purple-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span class="text-xs font-bold text-purple-700 uppercase tracking-wider bg-purple-100 px-3.5 py-1.5 rounded-full border border-purple-200 shadow-sm">
+                    <i class="fa-solid fa-chart-gantt mr-1 text-purple-600"></i> Visual Graphic Gantt Chart 2026
+                </span>
+                <h2 class="text-2xl sm:text-4xl font-black text-purple-950 mt-3">Takwim Grafikal Urus Tadbir KSM 2026</h2>
+                <p class="text-purple-700 text-sm sm:text-base mt-2">Garis masa bergrafik bagi pendaftaran keahlian, permohonan tauliah, serta mesyuarat urus tadbir sepanjang tahun 2026.</p>
+            </div>
+
+            <!-- Filter Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8">
+                <button onclick="filterGanttTab('all')" id="btn-tab-all" class="gantt-tab-btn active px-4 py-2 rounded-xl font-bold text-xs bg-purple-700 text-white shadow-md transition-all">
+                    <i class="fa-solid fa-layer-group mr-1.5"></i> Semua Aktiviti (2026)
+                </button>
+                <button onclick="filterGanttTab('pendaftaran')" id="btn-tab-pendaftaran" class="gantt-tab-btn px-4 py-2 rounded-xl font-bold text-xs bg-purple-50 text-purple-800 border border-purple-200 hover:bg-purple-100 transition-all">
+                    <i class="fa-solid fa-user-plus mr-1.5 text-emerald-600"></i> Pendaftaran Keahlian
+                </button>
+                <button onclick="filterGanttTab('tauliah')" id="btn-tab-tauliah" class="gantt-tab-btn px-4 py-2 rounded-xl font-bold text-xs bg-purple-50 text-purple-800 border border-purple-200 hover:bg-purple-100 transition-all">
+                    <i class="fa-solid fa-certificate mr-1.5 text-rose-600"></i> Permohonan Tauliah
+                </button>
+                <button onclick="filterGanttTab('mesyuarat')" id="btn-tab-mesyuarat" class="gantt-tab-btn px-4 py-2 rounded-xl font-bold text-xs bg-purple-50 text-purple-800 border border-purple-200 hover:bg-purple-100 transition-all">
+                    <i class="fa-solid fa-handshake mr-1.5 text-purple-600"></i> Pentadbiran & Mesyuarat
+                </button>
+            </div>
+
+            <!-- Gantt Graphic Container -->
+            <div class="bg-gradient-to-br from-purple-950 via-purple-900 to-slate-900 text-white p-4 sm:p-8 rounded-3xl shadow-2xl border border-purple-800 overflow-hidden relative">
+                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="overflow-x-auto custom-scrollbar pb-2">
+                    <div class="min-w-[920px]">
+                        
+                        <!-- Timeline Month Scale Header -->
+                        <div class="grid grid-cols-12 text-center text-xs font-black tracking-wider text-purple-200 pb-4 border-b border-purple-800/80 mb-6 bg-purple-900/40 p-3 rounded-2xl">
+                            <div class="border-r border-purple-800/60">JAN</div>
+                            <div class="border-r border-purple-800/60">FEB</div>
+                            <div class="border-r border-purple-800/60">MAC</div>
+                            <div class="border-r border-purple-800/60">APR</div>
+                            <div class="border-r border-purple-800/60">MEI</div>
+                            <div class="border-r border-purple-800/60">JUN</div>
+                            <div class="border-r border-purple-800/60">JUL</div>
+                            <div class="border-r border-purple-800/60">OGOS</div>
+                            <div class="border-r border-purple-800/60">SEPT</div>
+                            <div class="border-r border-purple-800/60">OKT</div>
+                            <div class="border-r border-purple-800/60">NOV</div>
+                            <div>DIS</div>
+                        </div>
+
+                        <!-- Graphical Gantt Rows -->
+                        <div class="space-y-6 relative" id="gantt-graphic-rows">
+
+                            <!-- Visual Bar 1: Profil Pemimpin -->
+                            <div class="gantt-item bg-purple-900/60 border border-purple-700/60 p-3.5 rounded-2xl hover:border-purple-400 transition" data-cat="mesyuarat">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-purple-200 flex items-center gap-2">
+                                        <i class="fa-solid fa-id-card text-purple-400"></i> Kemaskini Profil & Pangkalan Data Pemimpin
+                                    </span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-800 text-purple-200">Jan – Feb 2026</span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-7 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-2 h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-lg shadow-md flex items-center justify-center text-[10px] font-black tracking-wide text-white">
+                                        Fasa Awal
+                                    </div>
+                                    <div class="col-span-10"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 2: Pendaftaran Keahlian Fasa 1 -->
+                            <div class="gantt-item bg-purple-900/60 border border-emerald-500/40 p-3.5 rounded-2xl hover:border-emerald-400 transition bg-emerald-950/10" data-cat="pendaftaran">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-user-check text-emerald-400"></i> Pendaftaran Keahlian 2026 (Fasa 1)
+                                    </span>
+                                    <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                                        <i class="fa-solid fa-flag text-xs mr-1"></i> Tarikh Tutup: 30 Jun 2026
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-9 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-6 h-full bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 rounded-lg shadow-lg flex items-center justify-between px-3 text-[11px] font-black text-white relative overflow-hidden group">
+                                        <span class="flex items-center gap-1"><i class="fa-solid fa-users"></i> Tempoh Pendaftaran Fasa 1</span>
+                                        <span class="bg-emerald-950/60 px-2 py-0.5 rounded text-[10px] border border-emerald-400/40">30 Jun</span>
+                                    </div>
+                                    <div class="col-span-6"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 3: Mesyuarat YDP -->
+                            <div class="gantt-item bg-purple-900/60 border border-purple-700/60 p-3.5 rounded-2xl hover:border-purple-400 transition" data-cat="mesyuarat">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-purple-200 flex items-center gap-2">
+                                        <i class="fa-solid fa-comments text-purple-300"></i> Mesyuarat Agung YDP & Pengurusan KSM Kebangsaan
+                                    </span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-800 text-purple-200">Mac 2026</span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-7 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-1 h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-lg shadow-md flex items-center justify-center text-[10px] font-black text-white">
+                                        Mac
+                                    </div>
+                                    <div class="col-span-9"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 4: Pendaftaran Keahlian Fasa 2 -->
+                            <div class="gantt-item bg-purple-900/60 border border-amber-500/40 p-3.5 rounded-2xl hover:border-amber-400 transition bg-amber-950/10" data-cat="pendaftaran">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-user-plus text-amber-400"></i> Pendaftaran Keahlian 2026 (Fasa 2)
+                                    </span>
+                                    <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                        <i class="fa-solid fa-flag text-xs mr-1"></i> Tarikh Tutup: 30 Okt 2026
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-9 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-6"></div>
+                                    <div class="col-span-4 h-full bg-gradient-to-r from-amber-600 via-orange-500 to-amber-400 rounded-lg shadow-lg flex items-center justify-between px-3 text-[11px] font-black text-white relative overflow-hidden">
+                                        <span class="flex items-center gap-1"><i class="fa-solid fa-clock"></i> Fasa 2</span>
+                                        <span class="bg-amber-950/60 px-2 py-0.5 rounded text-[10px] border border-amber-400/40">30 Okt</span>
+                                    </div>
+                                    <div class="col-span-2"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 5: Permohonan Tauliah - Iklan Permohonan -->
+                            <div class="gantt-item bg-purple-900/60 border border-blue-500/40 p-3.5 rounded-2xl hover:border-blue-400 transition bg-blue-950/10" data-cat="tauliah">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-bullhorn text-blue-400"></i> Permohonan Tauliah 2026: Iklan Permohonan
+                                    </span>
+                                    <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                                        <i class="fa-solid fa-bullhorn text-xs mr-1"></i> Tarikh Iklan: 30 Sept 2026
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-8 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-8"></div>
+                                    <div class="col-span-1 h-full bg-gradient-to-r from-blue-600 to-cyan-500 rounded-lg shadow-lg flex items-center justify-center text-[10px] font-black text-white">
+                                        30 Sept
+                                    </div>
+                                    <div class="col-span-3"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 6: Permohonan Tauliah - Penghantaran Dokumen -->
+                            <div class="gantt-item bg-purple-900/60 border border-rose-500/40 p-3.5 rounded-2xl hover:border-rose-400 transition bg-rose-950/10" data-cat="tauliah">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-file-arrow-up text-rose-400"></i> Permohonan Tauliah 2026: Penghantaran Dokumen
+                                    </span>
+                                    <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 border border-rose-500/40">
+                                        <i class="fa-solid fa-calendar-xmark text-xs mr-1"></i> Tarikh Akhir: 30 Okt 2026
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-9 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-8"></div>
+                                    <div class="col-span-2 h-full bg-gradient-to-r from-rose-600 via-pink-600 to-rose-400 rounded-lg shadow-lg flex items-center justify-between px-3 text-[11px] font-black text-white">
+                                        <span class="flex items-center gap-1"><i class="fa-solid fa-file-check"></i> Dokumen</span>
+                                        <span class="bg-rose-950/60 px-1.5 py-0.5 rounded text-[10px] border border-rose-400/40">30 Okt</span>
+                                    </div>
+                                    <div class="col-span-2"></div>
+                                </div>
+                            </div>
+
+                            <!-- Visual Bar 7: Semakan & Penyerahan Tauliah -->
+                            <div class="gantt-item bg-purple-900/60 border border-purple-700/60 p-3.5 rounded-2xl hover:border-purple-400 transition" data-cat="tauliah">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-purple-200 flex items-center gap-2">
+                                        <i class="fa-solid fa-certificate text-amber-300"></i> Semakan Kelulusan & Majlis Penyerahan Tauliah
+                                    </span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-purple-800 text-purple-200">Nov – Dis 2026</span>
+                                </div>
+                                <div class="grid grid-cols-12 gap-1 items-center h-7 bg-purple-950/80 rounded-xl p-1 border border-purple-900">
+                                    <div class="col-span-10"></div>
+                                    <div class="col-span-2 h-full bg-gradient-to-r from-purple-500 via-purple-600 to-amber-500 rounded-lg shadow-md flex items-center justify-center text-[10px] font-black text-white">
+                                        Nov - Dis
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Legend / Highlights Footer -->
+                <div class="mt-8 pt-6 border-t border-purple-800/80 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                    <div class="bg-purple-900/40 p-3 rounded-2xl border border-purple-800 flex items-center gap-3">
+                        <div class="w-4 h-4 rounded-full bg-emerald-500 shadow-md shadow-emerald-500/50 flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-white">Pendaftaran Fasa 1</div>
+                            <div class="text-[11px] text-emerald-300 font-semibold">Tutup: 30 Jun 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-900/40 p-3 rounded-2xl border border-purple-800 flex items-center gap-3">
+                        <div class="w-4 h-4 rounded-full bg-amber-500 shadow-md shadow-amber-500/50 flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-white">Pendaftaran Fasa 2</div>
+                            <div class="text-[11px] text-amber-300 font-semibold">Tutup: 30 Okt 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-900/40 p-3 rounded-2xl border border-purple-800 flex items-center gap-3">
+                        <div class="w-4 h-4 rounded-full bg-blue-500 shadow-md shadow-blue-500/50 flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-white">Iklan Permohonan Tauliah</div>
+                            <div class="text-[11px] text-blue-300 font-semibold">Pelancaran: 30 Sept 2026</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-900/40 p-3 rounded-2xl border border-purple-800 flex items-center gap-3">
+                        <div class="w-4 h-4 rounded-full bg-rose-500 shadow-md shadow-rose-500/50 flex-shrink-0"></div>
+                        <div>
+                            <div class="font-bold text-white">Penghantaran Dokumen</div>
+                            <div class="text-[11px] text-rose-300 font-semibold">Tarikh Akhir: 30 Okt 2026</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-purple-950 text-white py-6 border-t border-purple-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xs sm:text-sm font-semibold text-purple-200 tracking-wide">
+                HAK MILIK @2026 URUS TADBIR KSM
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: CARTA ORGANISASI KSM -->
+    <div id="modal-org" class="fixed inset-0 z-50 hidden bg-purple-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-purple-200 overflow-hidden my-8 max-h-[90vh] flex flex-col">
+            <div class="purple-gradient text-white p-6 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-sitemap text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold">Carta Organisasi KSM 2026</h3>
+                        <p class="text-xs text-purple-200">Majlis & Urus Tadbir Kelanasiswa Malaysia Kebangsaan</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-org')" class="text-white/80 hover:text-white p-2 rounded-lg hover:bg-white/10">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-8 bg-purple-50/40">
+                <div class="text-center space-y-6">
+                    <div class="inline-block bg-purple-950 text-white p-4 rounded-2xl shadow-md border-2 border-purple-400 max-w-xs w-full">
+                        <div class="w-12 h-12 bg-purple-700 rounded-full mx-auto flex items-center justify-center text-xl font-bold mb-2">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h4 class="font-black text-sm">YBhg. Ketua Pesuruhjaya Pengakap Negara</h4>
+                        <p class="text-[11px] text-purple-200">Penaung Utama KSM</p>
+                    </div>
+
+                    <div class="w-0.5 h-6 bg-purple-300 mx-auto"></div>
+
+                    <div class="inline-block bg-purple-800 text-white p-4 rounded-2xl shadow-md border-2 border-purple-300 max-w-xs w-full">
+                        <div class="w-10 h-10 bg-purple-600 rounded-full mx-auto flex items-center justify-center text-lg font-bold mb-2">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h4 class="font-black text-sm">Pesuruhjaya Negara KSM</h4>
+                        <p class="text-[11px] text-purple-200">Pengerusi Majlis KSM Kebangsaan</p>
+                    </div>
+
+                    <div class="w-0.5 h-6 bg-purple-300 mx-auto"></div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-purple-200 shadow-sm text-center">
+                            <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full mx-auto flex items-center justify-center font-bold mb-2">
+                                <i class="fa-solid fa-clipboard-list"></i>
+                            </div>
+                            <h5 class="font-bold text-xs text-purple-950">Setiausaha Urus Tadbir</h5>
+                            <p class="text-[10px] text-slate-500 mt-1">Pengurusan Pendaftaran & Tauliah</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-2xl border border-purple-200 shadow-sm text-center">
+                            <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full mx-auto flex items-center justify-center font-bold mb-2">
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                            <h5 class="font-bold text-xs text-purple-950">Bendahari Kebangsaan</h5>
+                            <p class="text-[10px] text-slate-500 mt-1">Pengurusan Kewangan & Yuran</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-2xl border border-purple-200 shadow-sm text-center">
+                            <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full mx-auto flex items-center justify-center font-bold mb-2">
+                                <i class="fa-solid fa-network-wired"></i>
+                            </div>
+                            <h5 class="font-bold text-xs text-purple-950">Penyelaras Zon IPTA/IPTS</h5>
+                            <p class="text-[10px] text-slate-500 mt-1">Zon Utara, Selatan, Timur, Tengah, Sabah & Sarawak</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-purple-100/60 border-t border-purple-200 text-right">
+                <button onclick="closeModal('modal-org')" class="px-5 py-2 bg-purple-800 text-white font-bold rounded-xl text-xs hover:bg-purple-900">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: DATA KEAHLIAN KSM -->
+    <div id="modal-keahlian" class="fixed inset-0 z-50 hidden bg-purple-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-purple-200 overflow-hidden my-8 max-h-[90vh] flex flex-col">
+            <div class="purple-gradient text-white p-6 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-users text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold">Pangkalan Data Keahlian KSM 2026</h3>
+                        <p class="text-xs text-purple-200">Statistik Rekod Pendaftaran Fasa 1 & Fasa 2</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-keahlian')" class="text-white/80 hover:text-white p-2 rounded-lg hover:bg-white/10">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6 bg-purple-50/30">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
+                        <div class="text-xs font-bold text-emerald-800 uppercase">Fasa 1 (Tutup: 30 Jun 2026)</div>
+                        <div class="text-2xl font-black text-emerald-950 mt-1">5,240 Ahli</div>
+                        <p class="text-[11px] text-emerald-700 mt-1"><i class="fa-solid fa-check-circle"></i> Status Tarikh Fasa 1</p>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl">
+                        <div class="text-xs font-bold text-amber-800 uppercase">Fasa 2 (Tutup: 30 Okt 2026)</div>
+                        <div class="text-2xl font-black text-amber-950 mt-1">3,260 Ahli</div>
+                        <p class="text-[11px] text-amber-700 mt-1"><i class="fa-solid fa-clock"></i> Status Tarikh Fasa 2</p>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl">
+                        <div class="text-xs font-bold text-purple-800 uppercase">Jumlah Terkumpul</div>
+                        <div class="text-2xl font-black text-purple-950 mt-1">8,500 Ahli</div>
+                        <p class="text-[11px] text-purple-700 mt-1"><i class="fa-solid fa-chart-pie"></i> 42 Kumpulan IPT</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-4 rounded-2xl border border-purple-200 shadow-sm">
+                        <h4 class="font-bold text-xs text-purple-950 mb-3">Taburan Ahli Mengikut Zon IPT</h4>
+                        <div class="h-56 relative">
+                            <canvas id="keahlianChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-2xl border border-purple-200 shadow-sm flex flex-col">
+                        <h4 class="font-bold text-xs text-purple-950 mb-3">Ringkasan Pendaftaran IPT (2026)</h4>
+                        <div class="overflow-x-auto flex-1">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-purple-100 text-purple-900 font-bold">
+                                    <tr>
+                                        <th class="p-2 rounded-l-lg">Institusi</th>
+                                        <th class="p-2">Zon</th>
+                                        <th class="p-2 rounded-r-lg">Jumlah Ahli</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-purple-100">
+                                    <tr>
+                                        <td class="p-2 font-semibold">Universiti Malaya (UM)</td>
+                                        <td class="p-2 text-slate-500">Tengah</td>
+                                        <td class="p-2 font-bold text-purple-700">320</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Universiti Sains Malaysia (USM)</td>
+                                        <td class="p-2 text-slate-500">Utara</td>
+                                        <td class="p-2 font-bold text-purple-700">410</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Universiti Putra Malaysia (UPM)</td>
+                                        <td class="p-2 text-slate-500">Tengah</td>
+                                        <td class="p-2 font-bold text-purple-700">290</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Universiti Teknologi Malaysia (UTM)</td>
+                                        <td class="p-2 text-slate-500">Selatan</td>
+                                        <td class="p-2 font-bold text-purple-700">380</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Universiti Malaysia Sarawak (UNIMAS)</td>
+                                        <td class="p-2 text-slate-500">Sarawak</td>
+                                        <td class="p-2 font-bold text-purple-700">210</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-purple-100/60 border-t border-purple-200 text-right">
+                <button onclick="closeModal('modal-keahlian')" class="px-5 py-2 bg-purple-800 text-white font-bold rounded-xl text-xs hover:bg-purple-900">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: DATA TAULIAH KSM -->
+    <div id="modal-tauliah" class="fixed inset-0 z-50 hidden bg-purple-950/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-5xl rounded-3xl shadow-2xl border border-purple-200 overflow-hidden my-8 max-h-[90vh] flex flex-col">
+            <div class="purple-gradient text-white p-6 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                        <i class="fa-solid fa-award text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-extrabold">Pangkalan Data Tauliah KSM 2026</h3>
+                        <p class="text-xs text-purple-200">Rekod Pentauliahan Pemimpin & Penolong Pemimpin</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-tauliah')" class="text-white/80 hover:text-white p-2 rounded-lg hover:bg-white/10">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6 bg-purple-50/30">
+                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-r-2xl">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-bullhorn text-blue-600 text-xl mt-0.5"></i>
+                        <div>
+                            <h4 class="font-bold text-sm text-blue-950">Jadual Permohonan Tauliah 2026</h4>
+                            <p class="text-xs text-blue-800 mt-1">
+                                • <strong>Iklan Permohonan Tauliah:</strong> 30 September 2026<br>
+                                • <strong>Tarikh Akhir Penghantaran Dokumen:</strong> 30 Oktober 2026
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border border-purple-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-sm text-purple-950">Rekod Tauliah Aktif & Pembaharuan</h4>
+                        <span class="text-xs font-semibold text-purple-700 bg-purple-100 px-2.5 py-1 rounded-lg">320 Pemimpin Bertauliah</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-purple-100 text-purple-900 font-bold">
+                                <tr>
+                                    <th class="p-2.5 rounded-l-lg">No. Tauliah</th>
+                                    <th class="p-2.5">Nama Pemimpin</th>
+                                    <th class="p-2.5">Kumpulan / IPT</th>
+                                    <th class="p-2.5">Jawatan Tauliah</th>
+                                    <th class="p-2.5 rounded-r-lg">Status 2026</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-purple-100">
+                                <tr>
+                                    <td class="p-2.5 font-mono text-purple-800">KSM-TL-2024-012</td>
+                                    <td class="p-2.5 font-bold text-slate-800">Ahmad Razali Bin Osman</td>
+                                    <td class="p-2.5 text-slate-600">KSM Kumpulan UTM</td>
+                                    <td class="p-2.5 text-slate-600">Pemimpin Kelana</td>
+                                    <td class="p-2.5"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-bold text-[10px]">Aktif</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-mono text-purple-800">KSM-TL-2024-045</td>
+                                    <td class="p-2.5 font-bold text-slate-800">Nurul Huda Binti Hassan</td>
+                                    <td class="p-2.5 text-slate-600">KSM Kumpulan UKM</td>
+                                    <td class="p-2.5 text-slate-600">Penolong Pemimpin</td>
+                                    <td class="p-2.5"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-bold text-[10px]">Aktif</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-mono text-purple-800">KSM-TL-2025-089</td>
+                                    <td class="p-2.5 font-bold text-slate-800">Muhamad Irfan Bin Azmi</td>
+                                    <td class="p-2.5 text-slate-600">KSM Kumpulan USM</td>
+                                    <td class="p-2.5 text-slate-600">Pemimpin Kelana</td>
+                                    <td class="p-2.5"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md font-bold text-[10px]">Perlu Pembaharuan</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2.5 font-mono text-purple-800">KSM-TL-2026-IKLAN</td>
+                                    <td class="p-2.5 font-bold text-slate-800">Permohonan Tauliah 2026</td>
+                                    <td class="p-2.5 text-slate-600">Semua IPT</td>
+                                    <td class="p-2.5 text-slate-600">Pemimpin / Penolong</td>
+                                    <td class="p-2.5"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-md font-bold text-[10px]">Iklan 30 Sept</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-purple-100/60 border-t border-purple-200 text-right">
+                <button onclick="closeModal('modal-tauliah')" class="px-5 py-2 bg-purple-800 text-white font-bold rounded-xl text-xs hover:bg-purple-900">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Mobile Menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Filter Gantt Graphical Items by Category
+        function filterGanttTab(cat) {
+            const buttons = document.querySelectorAll('.gantt-tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-purple-700', 'text-white', 'shadow-md');
+                btn.classList.add('bg-purple-50', 'text-purple-800', 'border', 'border-purple-200');
+            });
+
+            const activeBtn = document.getElementById('btn-tab-' + cat);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-purple-50', 'text-purple-800', 'border', 'border-purple-200');
+                activeBtn.classList.add('bg-purple-700', 'text-white', 'shadow-md');
+            }
+
+            const items = document.querySelectorAll('.gantt-item');
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-cat');
+                if (cat === 'all' || itemCat === cat) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Handlers
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+
+                if (modalId === 'modal-keahlian') {
+                    initKeahlianChart();
+                }
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close Modal on Backdrop Click
+        window.addEventListener('click', function(event) {
+            ['modal-org', 'modal-keahlian', 'modal-tauliah'].forEach(id => {
+                const modal = document.getElementById(id);
+                if (event.target === modal) {
+                    closeModal(id);
+                }
+            });
+        });
+
+        // Initialize Chart.js for Keahlian Breakdown
+        let chartInstance = null;
+        function initKeahlianChart() {
+            const ctx = document.getElementById('keahlianChart');
+            if (!ctx) return;
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Zon Utara', 'Zon Tengah', 'Zon Selatan', 'Zon Timur', 'Sabah & Sarawak'],
+                    datasets: [{
+                        data: [1800, 2900, 1600, 1200, 1000],
+                        backgroundColor: [
+                            '#7e22ce',
+                            '#9333ea',
+                            '#c084fc',
+                            '#e9d5ff',
+                            '#581c87'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 11,
+                                    family: "'Inter', sans-serif"
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
