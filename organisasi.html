@@ -62,9 +62,10 @@
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-semibold">
                 <a href="#pengenalan" class="text-purpleBrand-200 hover:text-white transition">Pengenalan</a>
-                <a href="#carta-visual" class="text-purpleBrand-200 hover:text-white transition">Carta Organisasi</a>
+                <a href="#carta-visual" class="text-purpleBrand-200 hover:text-white transition">Carta Eksekutif</a>
                 <a href="#senarai-pimpinan" class="text-purpleBrand-200 hover:text-white transition">Barisan Kepimpinan</a>
                 <a href="#fungsi" class="text-purpleBrand-200 hover:text-white transition">Fungsi & Peranan</a>
+                <a href="#carta-pesuruhjaya" class="text-purpleBrand-200 hover:text-white transition">Carta Pesuruhjaya</a>
                 <a href="https://farihan-ptss.github.io/ksm" class="text-purpleBrand-200 hover:text-white transition">KEMBALI KE MENU UTAMA</a>
             </nav>
             <div class="md:hidden">
@@ -76,9 +77,10 @@
         <!-- Mobile Navigation Menu -->
         <div id="mobileMenu" class="hidden md:hidden bg-purpleBrand-900 border-t border-purpleBrand-800 px-4 pt-3 pb-5 space-y-2">
             <a href="#pengenalan" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Pengenalan</a>
-            <a href="#carta-visual" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Carta Organisasi</a>
+            <a href="#carta-visual" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Carta Eksekutif</a>
             <a href="#senarai-pimpinan" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Barisan Kepimpinan</a>
             <a href="#fungsi" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Fungsi & Peranan</a>
+            <a href="#carta-pesuruhjaya" class="block px-3 py-2 rounded-md text-purpleBrand-100 hover:bg-purpleBrand-800">Carta Pesuruhjaya</a>
         </div>
     </header>
 
@@ -141,7 +143,7 @@
                     onerror="this.onerror=null; this.src='https://placehold.co/1200x800/4c1d95/ffffff?text=Carta+Organisasi+Kelanasiswa+Malaysia'; "
                 />
                 <div class="absolute inset-0 bg-purpleBrand-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
-                    <button onclick="openModal()" class="px-5 py-2.5 bg-white text-purpleBrand-900 rounded-lg font-bold shadow-lg hover:bg-purpleBrand-50 transition flex items-center gap-2">
+                    <button onclick="openModal('EKSEKUTIF.jpg')" class="px-5 py-2.5 bg-white text-purpleBrand-900 rounded-lg font-bold shadow-lg hover:bg-purpleBrand-50 transition flex items-center gap-2">
                         <i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Imej Penuh
                     </button>
                 </div>
@@ -234,7 +236,7 @@
                         </div>
                         <div>
                             <span class="text-xs font-bold text-purpleBrand-600 uppercase tracking-wide block">Pesuruhjaya Latihan Negeri</span>
-                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">EN. AZMI BIN MOHAMMAD</h4>
+                            <h4 class="text-lg font-extrabold text-slate-800 mt-1 name-tag">Ts. AZMI BIN MOHAMMAD</h4>
                             <p class="text-xs text-slate-500 mt-2">Menguruskan modul latihan, kejurulatihan, dan kursus kepimpinan Pengakap Kelanasiswa.</p>
                         </div>
                     </div>
@@ -330,6 +332,38 @@
             </div>
         </section>
 
+        <!-- Carta Organisasi Pesuruhjaya Negeri Section -->
+        <section id="carta-pesuruhjaya" class="bg-white rounded-2xl p-6 sm:p-8 shadow-md border border-purpleBrand-200 space-y-6">
+            <div class="text-center max-w-3xl mx-auto mb-6">
+                <span class="px-3 py-1 bg-purpleBrand-100 text-purpleBrand-800 rounded-full text-xs font-semibold tracking-wider uppercase border border-purpleBrand-200 inline-block mb-2">
+                    Struktur Terperinci
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-purpleBrand-950">Carta Organisasi Pesuruhjaya Negeri Kelanasiswa Malaysia 2025 - 2027</h2>
+                <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                    Struktur penuh penyiapan jawatan, unit-unit portfolio (Pengurusan Latihan, Program Negeri, Antarabangsa Negeri, Pengurusan & Tadbir Urus, serta KOMSTAR) dan barisan Penolong Pesuruhjaya Negeri.
+                </p>
+            </div>
+
+            <!-- Image Wrapper with Click to Enlarge -->
+            <div class="relative group rounded-xl overflow-hidden border border-purpleBrand-200 bg-purpleBrand-950/5 shadow-inner">
+                <img 
+                    src="pesuruhjaya.png" 
+                    alt="Carta Organisasi Pesuruhjaya Negeri Kelanasiswa Malaysia 2025 - 2027" 
+                    class="w-full h-auto object-contain transition duration-300 group-hover:scale-[1.01]"
+                    id="chartPesuruhjayaImg"
+                    onerror="this.onerror=null; this.src='https://placehold.co/1200x800/4c1d95/ffffff?text=Carta+Organisasi+Pesuruhjaya+Negeri'; "
+                />
+                <div class="absolute inset-0 bg-purpleBrand-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
+                    <button onclick="openModal('pesuruhjaya.png')" class="px-5 py-2.5 bg-white text-purpleBrand-900 rounded-lg font-bold shadow-lg hover:bg-purpleBrand-50 transition flex items-center gap-2">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Lihat Imej Penuh
+                    </button>
+                </div>
+            </div>
+            <p class="text-xs text-center text-slate-400 mt-3">
+                <i class="fa-solid fa-info-circle"></i> Klik pada gambar untuk paparan saiz penuh.
+            </p>
+        </section>
+
     </main>
 
     <!-- Footer -->
@@ -350,7 +384,7 @@
             <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-purpleBrand-300 text-2xl font-bold focus:outline-none">
                 <i class="fa-solid fa-xmark"></i> Tutup
             </button>
-            <img src="MAJLIS EKSEKUTIF PENGAKAP NEGERI_2026.jpg" alt="Carta Organisasi Full" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl">
+            <img id="modalImg" src="MAJLIS EKSEKUTIF PENGAKAP NEGERI_2026.jpg" alt="Carta Organisasi Full" class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl">
         </div>
     </div>
 
@@ -365,8 +399,12 @@
         });
 
         // Modal Functions
-        function openModal() {
+        function openModal(imageSrc) {
             const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            if (imageSrc) {
+                modalImg.src = imageSrc;
+            }
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
