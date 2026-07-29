@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelanasiswa Malaysia (KSM) - Portal Urus Tadbir</title>
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -32,12 +33,13 @@
             }
         }
     </script>
-    <!-- Google Fonts -->
+    
+    <!-- Google Fonts & FontAwesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -47,31 +49,11 @@
             background-color: #fbf7ff;
             color: #3b0764;
         }
-        .bg-watermark {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85vw;
-            max-width: 620px;
-            max-height: 80vh;
-            object-fit: contain;
-            opacity: 0.08; /* Transparan / Lutsinar */
-            pointer-events: none;
-            z-index: 0;
-            user-select: none;
-            filter: contrast(110%) saturate(120%);
-        }
         .purple-gradient {
             background: linear-gradient(135deg, #7e22ce 0%, #9333ea 50%, #c084fc 100%);
         }
         .purple-gradient-light {
-            background: linear-gradient(135deg, rgba(254, 250, 255, 0.88) 0%, rgba(243, 232, 255, 0.88) 50%, rgba(233, 213, 255, 0.88) 100%);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(233, 213, 255, 0.8);
+            background: linear-gradient(135deg, rgba(254, 250, 255, 0.95) 0%, rgba(243, 232, 255, 0.9) 50%, rgba(233, 213, 255, 0.85) 100%);
         }
         .custom-scrollbar::-webkit-scrollbar {
             height: 8px;
@@ -87,10 +69,10 @@
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #9333ea;
-<body class="bg-purple-50 text-slate-800 antialiased selection:bg-purple-200 selection:text-purple-900 relative">
-
-    <!-- Transparent Centered Background Watermark Logo -->
-    <img src="ksm.jpg" alt="Kelanasiswa Malaysia Watermark" class="bg-watermark" onerror="this.onerror=null; this.src='https://placehold.co/600x600/f3e8ff/7e22ce?text=KSM+Watermark';">
+        }
+    </style>
+</head>
+<body class="bg-purple-50 text-slate-800 antialiased selection:bg-purple-200 selection:text-purple-900 relative min-h-screen flex flex-col">
 
     <!-- Navigation Header -->
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-purple-100 shadow-sm">
@@ -98,8 +80,8 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo & Title -->
                 <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 rounded-xl bg-purple-100 border border-purple-200 flex items-center justify-center p-1 shadow-sm overflow-hidden">
-                        <img src="ksm.jpg" alt="Logo KSM" class="w-full h-full object-contain" onerror="this.onerror=null; this.parentElement.innerHTML='<i class=\'fa-solid fa-compass text-2xl text-purple-700\'></i>';">
+                    <div class="w-14 h-14 rounded-2xl bg-white border border-purple-200 flex items-center justify-center p-1 shadow-sm overflow-hidden flex-shrink-0">
+                        <img src="ksm.jpg" alt="Logo KSM" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <a href="#" class="text-xl font-extrabold tracking-tight text-purple-950 flex items-center gap-2">
@@ -133,33 +115,76 @@
     </header>
 
     <!-- Hero Banner Section -->
-    <section class="relative overflow-hidden pt-12 pb-16 purple-gradient-light border-b border-purple-200">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-purple-300/30 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-purple-400/20 rounded-full blur-2xl pointer-events-none"></div>
-
+    <section class="relative overflow-hidden pt-12 pb-14 purple-gradient-light border-b border-purple-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-3xl mx-auto">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-200/80 text-purple-900 text-xs font-bold uppercase tracking-wider mb-4 border border-purple-300 shadow-sm">
                     <i class="fa-solid fa-shield-halved text-purple-700"></i> Urus Tadbir & Data KSM 2026
                 </span>
-                <h1 class="text-3xl sm:text-5xl font-black text-purple-950 tracking-tight leading-tight mb-5">
+                <h1 class="text-3xl sm:text-5xl font-black text-purple-950 tracking-tight leading-tight mb-4">
                     URUS TADBIR KELANASISWA MALAYSIA
                 </h1>
-                <p class="text-base sm:text-lg text-purple-800 font-medium leading-relaxed mb-8">
+                <p class="text-base sm:text-lg text-purple-800 font-medium leading-relaxed mb-6">
                     Pusat sehenti pengurusan keahlian, permohonan tauliah, carta organisasi, serta takwim perancangan aktiviti urus tadbir Pengakap Kelana di Institusi Pengajian Tinggi Malaysia.
                 </p>
 
                 <!-- Quick Action Buttons -->
-                <div class="flex flex-wrap justify-center gap-4">
-                    <button onclick="openModal('modal-org')" class="px-6 py-3.5 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-2xl shadow-lg shadow-purple-700/25 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-sitemap"></i> Carta Organisasi KSM
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="openModal('modal-org')" class="px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white text-xs sm:text-sm font-bold rounded-2xl shadow-lg shadow-purple-700/25 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-sitemap"></i> Carta Organisasi
                     </button>
-                    <button onclick="openModal('modal-keahlian')" class="px-6 py-3.5 bg-white hover:bg-purple-100 text-purple-900 font-bold rounded-2xl shadow-md border border-purple-300 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-users text-purple-700"></i> Data Keahlian KSM
+                    <button onclick="openModal('modal-keahlian')" class="px-5 py-3 bg-white hover:bg-purple-100 text-purple-900 text-xs sm:text-sm font-bold rounded-2xl shadow-md border border-purple-300 transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-users text-purple-700"></i> Data Keahlian
                     </button>
-                    <button onclick="openModal('modal-tauliah')" class="px-6 py-3.5 bg-purple-950 hover:bg-purple-900 text-white font-bold rounded-2xl shadow-lg transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
-                        <i class="fa-solid fa-award text-purple-300"></i> Data Tauliah KSM
+                    <button onclick="openModal('modal-tauliah')" class="px-5 py-3 bg-purple-950 hover:bg-purple-900 text-white text-xs sm:text-sm font-bold rounded-2xl shadow-lg transition duration-200 flex items-center gap-2 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-award text-purple-300"></i> Data Tauliah
                     </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Mengenai Kelanasiswa Malaysia (Placed at Top) -->
+    <section id="pengenalan" class="py-12 bg-white border-b border-purple-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-bold text-purple-700 uppercase tracking-wider bg-purple-100 px-3.5 py-1.5 rounded-full border border-purple-200">
+                        <i class="fa-solid fa-compass mr-1.5"></i> Mengenai KSM
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-purple-950 mt-3">Sistem & Pengurusan Kelanasiswa Malaysia</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-purple-50/70 p-5 rounded-2xl border border-purple-200 text-center">
+                        <div class="w-12 h-12 bg-purple-200 text-purple-800 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="font-extrabold text-sm text-purple-950 mb-1">Kepimpinan IPT</h3>
+                        <p class="text-xs text-purple-800 leading-relaxed">
+                            Memperkasa mahasiswa di Universiti Awam & IPTS menerusi latihan kepimpinan kepengakapan peringkat kebangsaan.
+                        </p>
+                    </div>
+
+                    <div class="bg-purple-50/70 p-5 rounded-2xl border border-purple-200 text-center">
+                        <div class="w-12 h-12 bg-purple-200 text-purple-800 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                            <i class="fa-solid fa-file-signature"></i>
+                        </div>
+                        <h3 class="font-extrabold text-sm text-purple-950 mb-1">Pentauliahan Pemimpin</h3>
+                        <p class="text-xs text-purple-800 leading-relaxed">
+                            Menguruskan permohonan dan kelulusan tauliah rasmi pemimpin serta penolong pemimpin di seluruh Malaysia.
+                        </p>
+                    </div>
+
+                    <div class="bg-purple-50/70 p-5 rounded-2xl border border-purple-200 text-center">
+                        <div class="w-12 h-12 bg-purple-200 text-purple-800 rounded-2xl flex items-center justify-center mx-auto mb-3 text-xl font-bold">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3 class="font-extrabold text-sm text-purple-950 mb-1">Pangkalan Data Pusat</h3>
+                        <p class="text-xs text-purple-800 leading-relaxed">
+                            Mengumpulkan rekod statistik pendaftaran keahlian tahunan dan profil rasmi kepimpinan KSM.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,8 +281,6 @@
 
             <!-- Gantt Graphic Container -->
             <div class="bg-gradient-to-br from-purple-950 via-purple-900 to-slate-900 text-white p-4 sm:p-8 rounded-3xl shadow-2xl border border-purple-800 overflow-hidden relative">
-                <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
                 <div class="overflow-x-auto custom-scrollbar pb-2">
                     <div class="min-w-[920px]">
                         
@@ -451,7 +474,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-purple-950 text-white py-6 border-t border-purple-900">
+    <footer class="bg-purple-950 text-white py-6 border-t border-purple-900 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-xs sm:text-sm font-semibold text-purple-200 tracking-wide">
                 HAK MILIK @2026 URUS TADBIR KSM
