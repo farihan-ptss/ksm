@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta & Analisis Keahlian KSM (2023 - 2025)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chart.js Datalabels Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        ksm: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7e22ce',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+        .gradient-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #3b0764 50%, #6b21a8 100%);
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Top Navigation Header -->
+    <header class="gradient-header text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <div class="flex items-center gap-3.5">
+                        <img src="ksm.jpe" alt="Logo KSM Kelanasiswa" class="h-14 w-auto object-contain bg-white/10 p-1.5 rounded-xl backdrop-blur-md border border-white/20 shadow-inner" onerror="this.onerror=null; this.src='ksm.jpg';">
+                        <div>
+                            <h1 class="text-2xl font-bold tracking-tight">Papan Pemuka Data Keahlian KSM</h1>
+                            <p class="text-purple-200 text-xs sm:text-sm">Visualisasi Trend & Laporan Statistik Keahlian Tahunan (2018 - 2025)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="window.print()" class="px-3.5 py-2 bg-purple-600 hover:bg-purple-500 text-white text-xs sm:text-sm font-medium rounded-lg shadow-md transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak Laporan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        
+        <!-- Summary Cards Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
+            <!-- Tahun Kemuncak -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 card-shadow transition-transform hover:-translate-y-1">
+                <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                    <span>Tahun Kemuncak</span>
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-arrow-trend-up text-base"></i></span>
+                </div>
+                <div id="statPeak" class="text-3xl font-extrabold text-emerald-600 mb-1">2,122</div>
+                <p class="text-xs text-emerald-700 font-medium"><i class="fa-solid fa-calendar me-1"></i> Rekod tertinggi pada tahun 2024</p>
+            </div>
+
+            <!-- Perubahan 2024 vs 2025 -->
+            <div class="bg-white p-5 rounded-2xl border border-slate-200/80 card-shadow transition-transform hover:-translate-y-1">
+                <div class="flex items-center justify-between text-slate-500 text-xs font-semibold uppercase tracking-wider mb-2">
+                    <span>Perubahan (2024-2025)</span>
+                    <span id="statChangeIconBg" class="p-2 bg-rose-50 text-rose-600 rounded-lg"><i id="statChangeIcon" class="fa-solid fa-arrow-down text-base"></i></span>
+                </div>
+                <div id="statChange" class="text-3xl font-extrabold text-rose-600 mb-1">-36.7%</div>
+                <p class="text-xs text-slate-500">Penurunan sebanyak <span id="statDiffCount" class="font-bold text-slate-700">778</span> ahli</p>
+            </div>
+        </div>
+
+        <!-- Main Content Area: Chart + Data Table -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            
+            <!-- Chart Column (Spans 2 cols) -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200/80 card-shadow flex flex-col justify-between">
+                <div>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-chart-bar text-purple-600"></i>
+                                Carta Keahlian Mengikut Tahun
+                            </h2>
+                            <p class="text-xs text-slate-500">Perbandingan bilangan ahli aktif KSM (2018 - 2025)</p>
+                        </div>
+                        
+                        <!-- Chart View Controls -->
+                        <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl self-start sm:self-auto">
+                            <button onclick="changeChartType('bar')" id="btnTypeBar" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-white shadow text-slate-800 transition-all">
+                                <i class="fa-solid fa-chart-simple me-1"></i> Bar
+                            </button>
+                            <button onclick="changeChartType('line')" id="btnTypeLine" class="px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+                                <i class="fa-solid fa-chart-line me-1"></i> Garis
+                            </button>
+                            <button onclick="changeChartType('horizontalBar')" id="btnTypeHBar" class="px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all">
+                                <i class="fa-solid fa-bars-staggered me-1"></i> Melintang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Wrapper -->
+                    <div class="relative w-full h-[320px] sm:h-[360px]">
+                        <canvas id="ksmChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-slate-100 text-xs text-slate-500 flex flex-wrap justify-between items-center gap-2">
+                    <span class="flex items-center gap-1.5">
+                        <span class="w-3 h-3 rounded-full bg-purple-600 inline-block"></span> Rekod Keahlian 8 Tahun (2018 - 2025)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Side Panel: Table & Highlights -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 card-shadow flex flex-col justify-between">
+                <div>
+                    <h2 class="text-lg font-bold text-slate-900 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-table-list text-purple-600"></i>
+                        Jadual Ringkasan Data
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-5">Perincian angka dan pertumbuhan YoY</p>
+
+                    <div class="overflow-x-auto max-h-[320px]">
+                        <table class="w-full text-left text-xs border-collapse">
+                            <thead class="sticky top-0 bg-slate-50 z-10">
+                                <tr class="text-slate-600 font-semibold border-b border-slate-200">
+                                    <th class="py-3 px-3">Tahun</th>
+                                    <th class="py-3 px-3 text-right">Ahli</th>
+                                    <th class="py-3 px-3 text-right">Pertumbuhan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody" class="divide-y divide-slate-100 text-slate-700 font-medium">
+                                <!-- Data rendered dynamically via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Strategic Observation Box -->
+                <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-500"></i> Analisis Ringkas
+                    </h3>
+                    <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                        <li><strong>2018 - 2019:</strong> Keahlian stabil pada tahap melebihi <strong>2,000</strong> orang.</li>
+                        <li><strong>2021:</strong> Titik terendah dengan <strong>593</strong> ahli.</li>
+                        <li><strong>2024:</strong> Rekod kemuncak baharu dipulihkan kepada <strong>2,122</strong> ahli.</li>
+                        <li><strong>2025:</strong> Penurunan semula kepada <strong>1,344</strong> (-36.7%).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs">
+        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:text-left">
+            <p>© 2026 Sistem Pengurusan & Analisis Data Keahlian KSM. Hak Cipta Terpelihara.</p>
+            <p class="mt-2 sm:mt-0 text-slate-500">Papan Pemuka Interaktif HTML & Chart.js</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        
+        // Dataset (2018 - 2025)
+        const defaultData = [
+            { year: '2018', count: 2055 },
+            { year: '2019', count: 2032 },
+            { year: '2020', count: 1357 },
+            { year: '2021', count: 593 },
+            { year: '2022', count: 1554 },
+            { year: '2023', count: 1726 },
+            { year: '2024', count: 2122 },
+            { year: '2025', count: 1344 }
+        ];
+
+        let ksmData = [...defaultData];
+        let chartInstance = null;
+        let currentChartType = 'bar'; // 'bar', 'line', 'horizontalBar'
+
+        // Register Datalabels Plugin
+        Chart.register(ChartDataLabels);
+
+        // Initialize Page on Load
+        window.onload = function() {
+            renderChart();
+            updateStatsAndTable();
+        };
+
+        function renderChart() {
+            const ctx = document.getElementById('ksmChart').getContext('2d');
+            
+            // Sort data chronologically
+            ksmData.sort((a, b) => a.year - b.year);
+
+            const labels = ksmData.map(d => d.year);
+            const counts = ksmData.map(d => d.count);
+
+            // Find peak value for highlight gradient
+            const maxVal = Math.max(...counts);
+
+            // Destroy existing chart if present
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            // Determine orientation and chart type
+            let type = currentChartType === 'horizontalBar' ? 'bar' : currentChartType;
+            let indexAxis = currentChartType === 'horizontalBar' ? 'y' : 'x';
+
+            // Custom dynamic colors based on values (Purple theme)
+            const backgroundColors = counts.map(val => val === maxVal ? '#7e22ce' : '#c084fc');
+            const hoverColors = counts.map(val => val === maxVal ? '#6b21a8' : '#a855f7');
+
+            chartInstance = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Bilangan Ahli KSM',
+                        data: counts,
+                        backgroundColor: currentChartType === 'line' ? 'rgba(126, 34, 206, 0.15)' : backgroundColors,
+                        borderColor: '#7e22ce',
+                        borderWidth: currentChartType === 'line' ? 3 : 0,
+                        hoverBackgroundColor: hoverColors,
+                        borderRadius: currentChartType === 'line' ? 0 : 8,
+                        borderSkipped: false,
+                        fill: currentChartType === 'line',
+                        tension: 0.3,
+                        pointBackgroundColor: '#581c87',
+                        pointRadius: currentChartType === 'line' ? 6 : 0,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    indexAxis: indexAxis,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#2e1065',
+                            titleFont: { family: 'Plus Jakarta Sans', size: 13, weight: 'bold' },
+                            bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    const val = context.raw || 0;
+                                    return ` Bilangan Ahli: ${val.toLocaleString()} orang`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            anchor: currentChartType === 'horizontalBar' ? 'end' : 'end',
+                            align: currentChartType === 'horizontalBar' ? 'right' : 'top',
+                            color: '#1e293b',
+                            font: {
+                                family: 'Plus Jakarta Sans',
+                                weight: 'bold',
+                                size: 11
+                            },
+                            formatter: function(value) {
+                                return value.toLocaleString();
+                            },
+                            offset: 4
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' },
+                                color: '#475569'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: '#f1f5f9'
+                            },
+                            ticks: {
+                                font: { family: 'Plus Jakarta Sans', size: 11 },
+                                color: '#64748b'
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateStatsAndTable() {
+            // Sort data chronologically
+            ksmData.sort((a, b) => a.year - b.year);
+
+            let peakItem = ksmData.length > 0 ? ksmData[0] : { year: '-', count: 0 };
+            ksmData.forEach(item => {
+                if (item.count > peakItem.count) peakItem = item;
+            });
+
+            // Update Metric Card
+            document.getElementById('statPeak').innerText = peakItem.count.toLocaleString();
+
+            // Calculate YoY change for the last two entries if available
+            if (ksmData.length >= 2) {
+                const last = ksmData[ksmData.length - 1];
+                const prev = ksmData[ksmData.length - 2];
+                const diff = last.count - prev.count;
+                const percent = ((diff / prev.count) * 100).toFixed(1);
+
+                const statChange = document.getElementById('statChange');
+                const statDiffCount = document.getElementById('statDiffCount');
+                const statChangeIcon = document.getElementById('statChangeIcon');
+                const statChangeIconBg = document.getElementById('statChangeIconBg');
+
+                statDiffCount.innerText = Math.abs(diff).toLocaleString();
+
+                if (diff >= 0) {
+                    statChange.innerText = `+${percent}%`;
+                    statChange.className = "text-3xl font-extrabold text-emerald-600 mb-1";
+                    statChangeIcon.className = "fa-solid fa-arrow-up text-base text-emerald-600";
+                    statChangeIconBg.className = "p-2 bg-emerald-50 text-emerald-600 rounded-lg";
+                } else {
+                    statChange.innerText = `${percent}%`;
+                    statChange.className = "text-3xl font-extrabold text-rose-600 mb-1";
+                    statChangeIcon.className = "fa-solid fa-arrow-down text-base text-rose-600";
+                    statChangeIconBg.className = "p-2 bg-rose-50 text-rose-600 rounded-lg";
+                }
+            }
+
+            // Render Table Rows
+            const tableBody = document.getElementById('dataTableBody');
+            tableBody.innerHTML = '';
+
+            // Clone and sort descending (newest year first)
+            const descendingData = [...ksmData].sort((a, b) => b.year - a.year);
+
+            descendingData.forEach((item) => {
+                // Find index in original chronological array to calculate YoY growth correctly
+                const chronoIndex = ksmData.findIndex(d => d.year === item.year);
+                let growthHTML = '<span class="text-slate-400">-</span>';
+
+                if (chronoIndex > 0) {
+                    const prevCount = ksmData[chronoIndex - 1].count;
+                    const diff = item.count - prevCount;
+                    const pct = ((diff / prevCount) * 100).toFixed(1);
+
+                    if (diff > 0) {
+                        growthHTML = `<span class="text-emerald-600 font-semibold flex items-center justify-end gap-1"><i class="fa-solid fa-caret-up"></i> +${pct}%</span>`;
+                    } else if (diff < 0) {
+                        growthHTML = `<span class="text-rose-600 font-semibold flex items-center justify-end gap-1"><i class="fa-solid fa-caret-down"></i> ${pct}%</span>`;
+                    } else {
+                        growthHTML = `<span class="text-slate-500 font-semibold text-right">0.0%</span>`;
+                    }
+                }
+
+                const isPeak = item.count === peakItem.count;
+                const row = document.createElement('tr');
+                row.className = isPeak ? "bg-purple-50/60 hover:bg-purple-100/50 transition-colors" : "hover:bg-slate-50 transition-colors";
+                
+                row.innerHTML = `
+                    <td class="py-3 px-3 font-bold text-slate-800">
+                        ${item.year}
+                        ${isPeak ? '<span class="ml-1.5 px-1.5 py-0.5 bg-purple-100 text-purple-700 text-[10px] rounded font-semibold">Kemuncak</span>' : ''}
+                    </td>
+                    <td class="py-3 px-3 text-right font-bold text-slate-900">${item.count.toLocaleString()}</td>
+                    <td class="py-3 px-3 text-right">${growthHTML}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function changeChartType(type) {
+            currentChartType = type;
+            
+            // Toggle button styles
+            const btnBar = document.getElementById('btnTypeBar');
+            const btnLine = document.getElementById('btnTypeLine');
+            const btnHBar = document.getElementById('btnTypeHBar');
+
+            [btnBar, btnLine, btnHBar].forEach(btn => {
+                btn.className = "px-3 py-1.5 text-xs font-semibold rounded-lg text-slate-600 hover:text-slate-900 transition-all";
+            });
+
+            if (type === 'bar') {
+                btnBar.className = "px-3 py-1.5 text-xs font-semibold rounded-lg bg-white shadow text-slate-800 transition-all";
+            } else if (type === 'line') {
+                btnLine.className = "px-3 py-1.5 text-xs font-semibold rounded-lg bg-white shadow text-slate-800 transition-all";
+            } else if (type === 'horizontalBar') {
+                btnHBar.className = "px-3 py-1.5 text-xs font-semibold rounded-lg bg-white shadow text-slate-800 transition-all";
+            }
+
+            renderChart();
+        }
+    </script>
+</body>
+</html>
